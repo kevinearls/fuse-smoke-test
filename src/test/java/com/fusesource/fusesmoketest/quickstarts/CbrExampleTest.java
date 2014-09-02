@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kearls on 25/08/14.
@@ -60,7 +62,13 @@ public class CbrExampleTest extends FuseSmokeTestBase {
         }
 
         List<String> outputFileNames = TestUtils.listFileNamesInDirectory(CBR_WORK_OUTPUT_DIRECTORY);
-        assertThat(outputFileNames, is(expectedFileNames));
+        assertEquals("Wrong number of files found", expectedFileNames.size(), outputFileNames.size());
+        //assertThat(outputFileNames, is(expectedFileNames));
+        for (String expectedFileName : expectedFileNames) {
+            assertTrue("Didn't find file " + expectedFileName, outputFileNames.contains(expectedFileName));
+        }
+
+
         // TODO we could check the log here too
     }
 
